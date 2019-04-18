@@ -11,7 +11,7 @@ const shopinfoDao = require("../dao/shopinfodao");
 router.get("/all",function(req,res){
     shopinfoDao.queryshopinfo(function(results){
         //将数据写出去
-        res.json({
+        res.send({
             code: 0,
             data: results,
             msg: ''
@@ -21,6 +21,16 @@ router.get("/all",function(req,res){
 router.post("/shopid",function(req,res){
     shopinfoDao.queryshopinfobyshopid(req.query.shopid,function(results){
         res.json(results);
+    })
+})
+router.get("/type",function(req,res){
+    const typeId = req.query.typeId
+    shopinfoDao.queryshopinfoByTypeid(typeId,function(results){
+        res.send({
+            code: 0,
+            data: results,
+            msg: ''
+        });
     })
 })
 

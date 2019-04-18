@@ -6,7 +6,7 @@ const bodyParser=require("body-parser");//引用bodyPaser模块 解析post请求
 //导入路由模块
 const routeUser = require("./routes/routeUserinfo");
 const routeOrder = require('./routes/routeOrderinfo');
-const shopinfoRoute = require("./routes/shopinforoute.js");
+const routeShopinfo = require("./routes/routeShopinfo.js");
 const routeGoodsinfo = require("./routes/routeGoodsinfo.js");
 const routeCategory = require("./routes/routeCategory.js");
 const routeShopType = require("./routes/routeShopType.js");
@@ -35,7 +35,7 @@ app.use(session({
 // });
 
 //路由处理
-app.use("/shopinfo",shopinfoRoute);
+app.use("/shopinfo",routeShopinfo);
 app.use("/userinfo",routeUser);
 app.use("/orderinfo",routeOrder);
 app.use("/goods",routeGoodsinfo);

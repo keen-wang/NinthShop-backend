@@ -14,8 +14,9 @@ function queryshopinfo(callback){
     })
 }
 //按分类查询店铺
-function  queryshopinfoBytypeid(typeid,callback){
-    conn.query("select * from shopinfo where typeid=?",[typeid],function(err,results,fields){
+function  queryshopinfoByTypeid(typeid,callback){
+  console.log('sql语句', `select distinct name,grade,sales,startprice,duration,summary,imgsrc from shopinfo inner join shop__type on shopinfo.id=shop__type.shopid where shop__type.typeid=${typeid}`)
+    conn.query("select distinct name,grade,sales,startprice,duration,summary,imgsrc from shopinfo inner join shop__type on shopinfo.id=shop__type.shopid where shop__type.typeid=?" ,[typeid],function(err,results,fields){
         callback(results);
     })
 }
@@ -26,4 +27,4 @@ function queryshopinfobyshopid(shopid,callback){
     })
 }
 
-module.exports={queryshopinfo,queryshopinfoBytypeid,queryshopinfobyshopid};
+module.exports={queryshopinfo,queryshopinfoByTypeid,queryshopinfobyshopid};
