@@ -10,8 +10,8 @@ const shopinfoRoute = require("./routes/shopinforoute.js");
 const routeGoodsinfo = require("./routes/routeGoodsinfo.js");
 const routeCategory = require("./routes/routeCategory.js");
 const routeShopType = require("./routes/routeShopType.js");
-const routeFile= require("./routes/routeFile.js");
-
+const routeFile = require("./routes/routeFile.js");
+const routeAddress =  require("./routes/routeAddress.js");
 const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -23,7 +23,7 @@ app.use(session({
   secret: '12345',
   cookie: {
     path: '/',
-    maxAge: 1000*60*60,
+    maxAge: 1000*60*60*24,
     httpOnly: true // 防止js查看修改cookie
   },
   resave: false,
@@ -41,6 +41,7 @@ app.use("/orderinfo",routeOrder);
 app.use("/goods",routeGoodsinfo);
 app.use("/category",routeCategory);
 app.use("/shoptype",routeShopType);
+app.use("/address",routeAddress);
 // app.use("/upload",routeShopType);
 
 

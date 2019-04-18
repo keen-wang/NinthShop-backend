@@ -9,8 +9,9 @@ const router = express.Router();
 router.get('/',function(req,res){
 	if(req.query){
 		categorydao.getCategoryByShopid(req.query.shopid,function(results){
-	        if (!results.length){
-	        	
+      // eslint-disable-next-line no-empty
+      if (!results.length){
+        
 			}else{
 				res.json(results);
 			}
