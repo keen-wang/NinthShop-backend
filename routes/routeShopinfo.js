@@ -18,9 +18,10 @@ router.get("/all",function(req,res){
         })
     })
 })
-router.post("/shopid",function(req,res){
+router.get("/shopid",function(req,res){
     shopinfoDao.queryshopinfobyshopid(req.query.shopid,function(results){
-        res.json(results);
+        const shopinfo = results[0] || {}
+        res.send({code: 0, data: shopinfo,msg: ''});
     })
 })
 router.get("/type",function(req,res){

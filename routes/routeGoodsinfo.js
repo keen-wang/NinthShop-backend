@@ -8,13 +8,17 @@ ordergoodsdao = require('../dao/ordergoodsdao');
 
 const router = express.Router();
 
-router.post('/menu',function(req,res){
+router.get('/list',function(req,res){
 	if(req.query){
 		goodsinfodao.getMenuByShopid(req.query.shopid,function(results){
-	        if (!results.length){
+	    if (!results.length){
 
 			}else{
-				res.json(results);
+				res.send({
+					code: 0,
+					data: results,
+					msg: ''
+				});
 			}
 		});
 	}
