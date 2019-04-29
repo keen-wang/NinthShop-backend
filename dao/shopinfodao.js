@@ -15,8 +15,10 @@ function queryshopinfo(callback){
 }
 //按分类查询店铺
 function  queryshopinfoByTypeid(typeid,callback){
-  console.log('sql语句', `select distinct name,grade,sales,startprice,duration,summary,imgsrc from shopinfo inner join shop__type on shopinfo.id=shop__type.shopid where shop__type.typeid=${typeid}`)
-    conn.query("select distinct name,grade,sales,startprice,duration,summary,imgsrc from shopinfo inner join shop__type on shopinfo.id=shop__type.shopid where shop__type.typeid=?" ,[typeid],function(err,results,fields){
+  // console.log('sql语句', `select distinct shopinfo.id,name,grade,sales,startprice,duration,summary,imgsrc from shopinfo inner join shop__type on shopinfo.id=shop__type.shopid where shop__type.typeid=${typeid}`)
+    conn.query("select distinct shopinfo.id,name,grade,sales,startprice,duration,summary,imgsrc from shopinfo inner join shop__type on shopinfo.id=shop__type.shopid where shop__type.typeid=?" ,[typeid],function(err,results,fields){
+        if(err) throw err
+        // console.log('数据', results)
         callback(results);
     })
 }
