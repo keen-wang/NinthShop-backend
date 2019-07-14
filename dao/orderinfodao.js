@@ -12,11 +12,11 @@ function queryOrderByUserid(userid,callback){
     });
 };
 //插入一条订单数据
-function insertOrder(userid,shopid,date,callback){
-    conn.query("insert into orderinfo (userid,shopid,date) values(?,?,?)",[userid,shopid,date],function  (err,results,fields) {
-        if (err) throw err;
-        callback(results);
-    });
+function insertOrder({userid,shopid,addressid,date},callback){
+    conn.query("insert into orderinfo (userid,shopid,addressid,date) values(?,?,?,?)",[userid,shopid,addressid,date],function  (err,results,fields) {
+        if (err) throw err
+        callback(results)
+    })
 }
 //更新订单状态
 function updateOrderStatusById(id,status,callback){

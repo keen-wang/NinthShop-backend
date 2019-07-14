@@ -6,8 +6,8 @@ const express = require('express'),
 const router = express.Router()
 
 //获取用户地址信息
-router.get('/',function (req,res) {
-    if (!req.session.userid||req.session.userid===0) {
+router.get('',function (req,res) {
+    if (!req.session.userid&&req.session.userid!==0) {
       res.send({code: 1, data: {}, msg: '请先登录账号'})
       return 
     }
@@ -26,7 +26,7 @@ router.get('/',function (req,res) {
 })
 //修改地址信息
 router.post('/update',function (req,res) {
-    if (!req.session.userid||req.session.userid===0) {
+    if (!req.session.userid&&req.session.userid!==0) {
       res.send({code: 6, data: {}, msg: '请先登录账号'})
       return 
     }
@@ -43,7 +43,7 @@ router.post('/update',function (req,res) {
 })
 //插入地址信息
 router.post('/create',function (req,res) {
-    if (!req.session.userid||req.session.userid===0) {
+    if (!req.session.userid&&req.session.userid!==0) {
       res.send({code: 6, data: {}, msg: '请先登录账号'})
       return 
     }
@@ -62,11 +62,11 @@ router.post('/create',function (req,res) {
 });
 //删除地址数据
 router.get('/delete',function (req,res) {
-  if (!req.session.userid||req.session.userid===0) {
+  if (!req.session.userid&&req.session.userid!==0) {
     res.send({code: 6, data: {}, msg: '请先登录账号'})
     return 
   }
-  addressinfodao.deleteAddress(req.query.id,function(results, err) {
+  addressinfodao.deleteAddress(req.session.userid,function(results, err) {
     if (err&&results.affectedRow!==1){
         res.send({code:1, msg:'删除失败'});
     }else{

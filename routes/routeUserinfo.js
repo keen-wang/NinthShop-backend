@@ -35,22 +35,22 @@ router.get('/',function (req,res) {
 });
 //登录校验
 router.post('/check',function (req,res) {
-    const {password, username} = req.body
-    userinfodao.queryUserByName(username,function(results) {
-        if (results.length==0){
-            return res.send({code: 1, data: {}, msg: '用户名不存在'});
-        }else{
-            let result = results[0];
-            if (result.pwd===md5(password)) {
-                const userid = result.id
-                req.session.userid = userid
-                return  res.send({msg:'成功',code: 0,userid: userid});
-            }else{
-                return   res.send({msg: '用户名或密码错误',code: 1, data: {}});
-            }
-        }
-    });
-});
+  const {password, username} = req.body
+  userinfodao.queryUserByName(username,function(results) {
+    if (results.length==0){
+      return res.send({code: 1, data: {}, msg: '用户名不存在'});
+    }else{
+      let result = results[0];
+      if (result.pwd===md5(password)) {
+          const userid = result.id
+          req.session.userid = userid
+          return  res.send({msg:'成功',code: 0,userid: userid});
+      }else{
+          return   res.send({msg: '用户名或密码错误',code: 1, data: {}});
+      }
+    }
+  })
+})
 //登出账号
 router.get('/logout',function (req,res) {
   // 清除浏览器保存的userid的cookie
@@ -60,21 +60,27 @@ router.get('/logout',function (req,res) {
 });
 //注册功能
 router.post('/register',function (req,res) {
-    const {username, password, type} = req.body
-    userinfodao.queryUserByName(username,function(results) {
-        if (results.length !== 0){
-            return res.send({code: 1, msg:'用户名已被注册'});
-        }else{
-            // 密码加密
-            userinfodao.insertUserinfo(username,md5(password),'null',type,results => {
-                // 将id加密
-                const userid = results.insertId
-                req.session.userid = userid
-                const data = {username, type, '_id': userid}
-                return res.send({code: 0, data, msg:'注册成功'});
-            })
+  const {username, password, type, tell} = req.body
+  userinfodao.queryUserByName(username,function(results) {
+    if (results.length !== 0){
+        return res.send({code: 1, msg:'用户名已被注册'});
+    }else{
+      // 密码加密
+      userinfodao.insertUserinfo(
+        username,
+        md5(password),
+        tell,
+        type,
+        results => {
+          // 将id加密
+          const userid = results.insertId
+          req.session.userid = userid
+          const data = {username, type, '_id': userid}
+          return res.send({code: 0, data, msg:'注册成功'});
         }
-    });
+      )
+    }
+  });
 });
 //获取用户信息
 router.post('/get',function (req,res) {
