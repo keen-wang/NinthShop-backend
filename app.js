@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 //获取服务器静态资源
-app.use(express.static("./webapp"));
+app.use(express.static("./dist"));
 // session持久化
 app.use(session({
   secret: '12345',
